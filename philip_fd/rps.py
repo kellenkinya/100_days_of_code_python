@@ -43,20 +43,6 @@ def get_computer_selection():
     return action
 
 
-while True:
-    try:
-        user_action = get_user_selection()
-    except ValueError as e:
-        range_str = f"[0, {len(Action) - 1}]"
-        print(f"Invalid selection. Enter a value in range {range_str}")
-        continue
-
-    computer_action = get_computer_selection()
-    determine_winner(user_action, computer_action)
-
-    play_again = input("Play again? (y/n): ")
-    if play_again.lower() != "y":
-        break
 
 def determine_winners(user_action, computer_action):
     if (user_action==Action.Rock and computer_action==Action.scissors) or (user_action==Action.scissors and computer_action==Action.paper) or(user_action==Action.paper and computer_action==Action.Rock):
@@ -92,8 +78,22 @@ def the_game():
             print(f"Invalid selection. Enter a value in range {range_str}")
             continue
         computer_action = get_computer_selection()
-        dict_winners = (user_action, computer_action)
+        dict_winners(user_action, computer_action)
 
         play_again = input("Play again? (y/n)")
         if play_again.lower() != "y":
             break
+while True:
+    try:
+        user_action = get_user_selection()
+    except ValueError as e:
+        range_str = f"[0, {len(Action) - 1}]"
+        print(f"Invalid selection. Enter a value in range {range_str}")
+        continue
+
+    computer_action = get_computer_selection()
+    dict_winners(user_action, computer_action)
+
+    play_again = input("Play again? (y/n): ")
+    if play_again.lower() != "y":
+        break
