@@ -55,3 +55,57 @@ def play_again():
 
 
 play_again()
+
+
+####################hangman project###3
+from words import words
+import string
+
+
+def  get_valid_words(words):
+    word=random.choice(words)
+    while '-' in word or ' ' in word:
+        word= random.choice(words)
+    return word.upper()
+
+
+def hangman():
+    word= get_valid_words(words)
+    word_string=set(word)
+    alphabet=string.ascii_uppercase
+    used_letters=set()
+
+
+    lives=7
+
+    while lives>0 and len(word_string)>0:
+        print("you have ", lives, "you have used these letter ", " ".join(used_letters))
+
+        #get the current word filling which letter have been guessed and those not guessed
+
+        letters_in_word_string=[letters if letters in used_letters else "-" for letters in word]
+
+        print(" This is the word so far: ", " ".join(letters_in_word_string))
+
+        user_letters= input("please guess your letter").upper()
+
+        if user_letters in alphabet-used_letters:
+            used_letters.add(user_letters)
+            if user_letters in word_string:
+                word_string.remove(user_letters)
+            else:
+                lives=lives-1
+                print("letter not in word")
+        elif  user_letters in used_letters:
+            print("you have used : this letter")
+        else:
+            print("please guess a correct letter")
+
+        
+        if lives==0:
+            print("you are out of lives")
+        else:
+            print("you got the correct word")
+
+
+hangman()
